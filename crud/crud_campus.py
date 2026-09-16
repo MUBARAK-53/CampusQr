@@ -44,7 +44,7 @@ async def get_campus(db:AsyncSession):
     
     existing_campus=result.scalars().all()
     
-    if existing_campus is None:
+    if not existing_campus :
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Campus Not Found!"

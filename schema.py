@@ -36,3 +36,29 @@ class CampusResponse(BaseModel):
 
     class Config:
         from_attributes=True
+
+
+class CreateBuilding(BaseModel):
+    building_name:str
+    building_code:str
+    latitude:float
+    longitude:float
+
+
+class UpdateBuilding(BaseModel):
+    building_name:str
+    building_code:str
+    latitude:float
+    longitude:float
+
+
+
+class BuildingResponse(BaseModel):
+    id:int
+    building_name:str
+    building_code:str
+    latitude:float
+    longitude:float
+
+    class Config:
+        from_attributes=True
