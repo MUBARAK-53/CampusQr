@@ -62,3 +62,62 @@ class BuildingResponse(BaseModel):
 
     class Config:
         from_attributes=True
+
+
+class CreateFloor(BaseModel):
+    floor_name:str
+    floor_code:str
+
+
+
+class UpdateFloor(BaseModel):
+    floor_name:str
+    floor_code:str
+
+
+class FloorResponse(BaseModel):
+    id:int
+    floor_name:str
+    floor_code:str
+    building_id:int
+
+    class Config:
+        from_attributes=True
+
+class QrResolveResponse(BaseModel):
+    qr_data:str
+
+
+class CreateLocation(BaseModel):
+    id:int
+    location_name: str
+    location_code: str
+    location_type: str
+    building_id: int
+    floor_id: int
+    latitude: float
+    longitude: float
+    description: str | None = None
+
+class UpdateLocation(BaseModel):
+    id:int
+    location_name: str
+    location_code: str
+    location_type: str
+    building_id: int
+    floor_id: int
+    latitude: float
+    longitude: float
+    description: str | None = None
+
+class LocationResponse(BaseModel):
+    id: int
+    location_name: str
+    location_code: str
+    location_type: str
+    building_id: int
+    floor_id: int
+    latitude: float
+    longitude: float
+    description: str | None
+    
