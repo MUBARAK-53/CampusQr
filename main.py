@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from database import engine, Base
-from routers import campus,building,floors,qr_resolve
+from routers import campus,building,floors,qr_resolve,locations
 
 import models
 
@@ -27,3 +27,4 @@ app.include_router(campus.router)
 app.include_router(building.router)
 app.include_router(floors.router)
 app.include_router(qr_resolve.router)
+app.include_router(locations.router)
