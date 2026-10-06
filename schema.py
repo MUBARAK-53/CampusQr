@@ -89,7 +89,6 @@ class QrResolveResponse(BaseModel):
 
 
 class CreateLocation(BaseModel):
-    id:int
     location_name: str
     location_code: str
     location_type: str
@@ -100,7 +99,6 @@ class CreateLocation(BaseModel):
     description: str | None = None
 
 class UpdateLocation(BaseModel):
-    id:int
     location_name: str
     location_code: str
     location_type: str

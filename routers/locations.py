@@ -32,7 +32,7 @@ async def get_all_locations(
     floor_code: str,
     db: AsyncSession = Depends(get_db)
 ):
-    return await crud_locations.get_locations(db, floor_code)
+    return await crud_locations.get_locations(db, building_code,floor_code)
 
 
 @router.get("/{location_code}", response_model=LocationResponse)

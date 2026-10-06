@@ -1,4 +1,4 @@
-from models import Campus, Building,Floor,Locations
+from models import Building,Floor,Locations
 from schema import CreateLocation,UpdateLocation
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -57,14 +57,31 @@ async def create_location(db:AsyncSession,location:CreateLocation,floor_code:str
 
     return new_location
 
-
 async def get_locations(
     db: AsyncSession,
+    building_code: str,
     floor_code: str
 ):
+    # Find building
+    result = await db.execute(
+        select(Building).where(
+            Building.building_code == building_code
+        )
+    )
+
+    building = result.scalar_one_or_none()
+
+    if not building:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Building Not Found!"
+        )
+
+    # Find floor inside this building
     result = await db.execute(
         select(Floor).where(
-            Floor.floor_code == floor_code
+            Floor.floor_code == floor_code,
+            Floor.building_id == building.id
         )
     )
 
@@ -76,17 +93,17 @@ async def get_locations(
             detail="Floor Not Found!"
         )
 
-
-    result=await db.execute(
+    # Get locations
+    result = await db.execute(
         select(Locations).where(
-            Locations.floor_id==floor.id,
-            Locations.building_id==floor.building_id
+            Locations.floor_id == floor.id,
+            Locations.building_id == building.id
         )
     )
 
-    location=result.scalars().all()
+    locations = result.scalars().all()
 
-    return location
+    return locations
 
 async def get_single_location(
     db: AsyncSession,
